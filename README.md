@@ -1,7 +1,7 @@
 ## SUNUCU İSTEK YOĞUNLUĞUNUN MULTITHREAD İLE KONTROLÜ
 ***
 
-![heads](https://github.com/hibeyter/Yazlab/blob/master/imgages/a.jpg)
+![heads](https://github.com/hibeyter/Yazlab/blob/master/imgs/a.jpg)
 
 ***
 ### Proje bileşenlerinin özellikleri:
