@@ -1,2 +1,2 @@
 # Yazlab
-https://github.com/hibeyter/Yazlab/wiki
+![WİKİ]https://github.com/hibeyter/Yazlab/wiki
