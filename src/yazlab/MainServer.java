@@ -24,19 +24,18 @@ class Cevaplar implements Runnable{
     public Cevaplar(MainStorage depo){
         this.depo=depo;        
     }    
+     public synchronized void syncResponse(int value){
+        if(depo.storage>value) depo.storage-=value;                
+        else  depo.storage=0;              
+    }
     @Override
     public void run() {
-       while(true){
-           depo.stop++;
+       while(true){           
             try {
             sleep(depo.RESPONSE_MS);
             Random rValue = new Random();
             int value = rValue.nextInt(50)+1;
-            if(depo.storage>value){
-                depo.storage-=value;                
-            }else{
-                depo.storage=0;               
-            }
+             syncResponse(value);
            //System.out.println(depo.stop+" MAİNNNN verilen cevap= " +value+" depo= "+depo.storage);
             } catch (InterruptedException ex) {
                 System.out.println(ex.toString());
@@ -51,6 +50,14 @@ class Istekler implements Runnable{
     public Istekler(MainStorage depo){
         this.depo=depo;        
     }    
+    
+      synchronized void syncRequest(int value){
+       if(depo.storage<depo.CAPACITY){                     
+            if(depo.storage+value<depo.CAPACITY){
+                depo.storage+=value;
+            }else depo.storage=depo.CAPACITY;
+       }
+    }
     @Override
     public void run() {
         while(true){
@@ -59,13 +66,7 @@ class Istekler implements Runnable{
                 sleep(depo.REQUEST_MS);
                 Random rValue = new Random();
                 int value = rValue.nextInt(100)+1;
-                if(depo.storage<depo.CAPACITY){
-                     depo.storage+=value;
-                }else{
-                    //server taştı 
-                }
-                                
-                //System.out.println(depo.stop+" MAİNNN  alınan istek= " +value+" depo= "+depo.storage);
+                syncRequest(value);                         
             } catch (InterruptedException ex) {
                 System.out.println(ex.toString());
             }

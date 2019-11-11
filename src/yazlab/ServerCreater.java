@@ -13,8 +13,10 @@ public class ServerCreater {
     public ServerCreater() {
         subServers = new ArrayList<>(); 
         MainStorage depo = new MainStorage();
-        SubStorage subDepo = new SubStorage();        
-        SubStorage subDepo1 = new SubStorage();        
+        SubStorage subDepo = new SubStorage();
+        subDepo.stop=true;
+        SubStorage subDepo1 = new SubStorage(); 
+        subDepo1.stop=true;
         MainServer mainThread = new MainServer(depo);
         SubServer subThread1 = new SubServer(depo, subDepo);
         SubServer subThread2 = new SubServer(depo, subDepo1);        
@@ -41,22 +43,20 @@ class Creater implements Runnable{
         while (true) {            
             try {                
                sleep(200); 
-               List<Double> temp=control.information();
+               List<Float> temp=control.information();
                for (int i = 0; i < temp.size(); i++) {                     
                     double value = temp.get(i);                    
-                    if (value>70) {                        
+                    if (value>70 && i!=0) {                        
                         SubStorage subDepo = new SubStorage();
-                        if(i!=0){
-                            subDepo.storage=control.subServers.get(i-1).subDepo.storage/2;
-                            control.subServers.get(i-1).subDepo.storage=control.subServers.get(i-1).subDepo.storage/2;
-                        }else{
-                            subDepo.storage=depo.storage/2;
-                            depo.storage=depo.storage/2;
-                        }                        
+                        subDepo.stop=true;                        
+                        subDepo.storage=control.subServers.get(i-1).subDepo.storage/2;
+                        control.subServers.get(i-1).subDepo.storage=control.subServers.get(i-1).subDepo.storage/2;                                 
                         SubServer subThread = new SubServer(depo, subDepo);                        
                         control.subServers.add(subThread);
+                        System.out.println("Bir Alt Sunucu Oluşturuldu");
                     }else if (value==0 && control.subServers.size()>2 && i!=0){
-                        control.subServers.remove(i);
+                        control.subServers.get(i-1).subDepo.stop=false;
+                        control.subServers.remove(i-1); 
                     } 
                 } 
             } catch (InterruptedException ex) {

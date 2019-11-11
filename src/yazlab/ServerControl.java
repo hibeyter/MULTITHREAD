@@ -12,12 +12,12 @@ public class ServerControl {
         this.mainServer = mainServer;
         this.subServers = subServers;
     }
-    public  List<Double> information(){
-        List<Double> list = new ArrayList<>();
-        double ort=100-(((double)(mainServer.depo.CAPACITY-mainServer.depo.storage)/mainServer.depo.CAPACITY)*100.0);
+    public  List<Float> information(){
+        List<Float> list = new ArrayList<>();
+        float ort=(float) (100-(((float)(mainServer.depo.CAPACITY-mainServer.depo.storage)/mainServer.depo.CAPACITY)*100.0));
         list.add(ort);
         for (SubServer subServer : subServers) {
-            ort=100-(((double)(subServer.subDepo.CAPACITY-subServer.subDepo.storage)/subServer.subDepo.CAPACITY)*100.0);
+            ort=(float) (100-(((float)(subServer.subDepo.CAPACITY-subServer.subDepo.storage)/subServer.subDepo.CAPACITY)*100.0));
             list.add(ort);            
         }        
         return list;
