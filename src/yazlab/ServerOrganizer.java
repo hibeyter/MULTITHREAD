@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ServerCreater {
+public class ServerOrganizer {
     
     public List<SubServer> subServers ;
     ServerControl control;
-    public ServerCreater() {
+    public ServerOrganizer() {
         subServers = new ArrayList<>(); 
         MainStorage depo = new MainStorage();
         SubStorage subDepo = new SubStorage();

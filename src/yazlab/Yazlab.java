@@ -16,7 +16,7 @@ public class Yazlab extends javax.swing.JFrame {
     List<SubServer> subServers;  
     public Yazlab() {
         initComponents();       
-        ServerCreater creater = new ServerCreater();
+        ServerOrganizer creater = new ServerOrganizer();
         
         List<JProgressBar> myProgress = new ArrayList<>();
         Timer timer = new Timer();           

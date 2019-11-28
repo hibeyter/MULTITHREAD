@@ -60,8 +60,7 @@ class Istekler implements Runnable{
     }
     @Override
     public void run() {
-        while(true){
-            depo.stop++;
+        while(true){            
             try {
                 sleep(depo.REQUEST_MS);
                 Random rValue = new Random();
