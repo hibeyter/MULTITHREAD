@@ -6,8 +6,10 @@ import java.util.Random;
 
 public class SubServer {
     SubStorage subDepo;
+    MainStorage depo;
     public SubServer(MainStorage depo,SubStorage subDepo) {  
-        this.subDepo=subDepo;        
+        this.subDepo=subDepo;
+        this.depo=depo;
         Cevapla cevapla = new Cevapla(subDepo);
         Istek  istek =new Istek(depo,subDepo);
         Thread t1 = new Thread(istek);
@@ -54,7 +56,7 @@ class Istek implements Runnable{
             depo.storage-=value;             
             subDepo.storage+=value;
         }else{
-           // main storage'daki bütün istekler alınır
+           // main storage'daki bÃ¼tÃ¼n istekler alÄ±nÄ±r
            subDepo.storage+=depo.storage;
            depo.storage-=depo.storage;
         } 
@@ -71,7 +73,7 @@ class Istek implements Runnable{
                    System.out.println(ex.toString());
                }             
              }
-             if(!subDepo.stop) System.out.println("Bir Alt Sunucu Kapatıldı");
+             if(!subDepo.stop) System.out.println("Bir Alt Sunucu KapatÄ±ldÄ±");
     }  
    
 }
